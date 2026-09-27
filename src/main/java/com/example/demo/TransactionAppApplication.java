@@ -8,6 +8,7 @@ public class TransactionAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TransactionAppApplication.class, args);
+		//Testing git connection
 	}
 
 }
