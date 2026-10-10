@@ -6,8 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TransactionAppApplication implements CommandLineRunner	{
-	
+public class TransactionAppApplication implements CommandLineRunner{
+
 	@Autowired
 	CRUDmethods crudMethods;
 
@@ -17,7 +17,7 @@ public class TransactionAppApplication implements CommandLineRunner	{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Transaction t = new Transaction(23, "Furniture", "IKEA", "Lawn Chair", 23.99);
+		Transaction t = new Transaction(22, "Furniture", "IKEA", "Lawn Chair", 23.99);
 		crudMethods.create(t);
 		
 	}
