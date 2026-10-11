@@ -2,17 +2,19 @@ package com.example.demo;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -129,6 +131,50 @@ public class TransactionGUI extends JFrame implements ActionListener{
 			catch(Exception x) {
 				ErrorWindow w = new ErrorWindow();
 			}
+		}
+		if(e.getSource()==update) {
+			try {
+				int i = Integer.parseInt(Id.getText());
+				int a = Integer.parseInt(accId.getText());
+		        String c = category.getText();
+		        String m = merchant.getText();
+		        String d = description.getText();
+		        double p = Double.parseDouble(price.getText());
+				Transaction t = new Transaction(i, a, c, m, d, p);
+				crudMethods.update(t);
+			}
+			catch(Exception x) {
+				ErrorWindow w = new ErrorWindow();
+			}
+		}
+		if(e.getSource()==delete) {
+			try {
+				int i = Integer.parseInt(Id.getText());
+				Transaction t = new Transaction(i);
+				crudMethods.delete(t);
+			}
+			catch(Exception x) {
+				ErrorWindow w = new ErrorWindow();
+			}
+		}
+		if(e.getSource()==view) {
+			List<Transaction> l = crudMethods.retrieveAll();
+
+		    JTextArea textArea = new JTextArea(15, 30);
+		    textArea.setEditable(false);
+
+		    for (Transaction t : l) {
+		        textArea.append(t.toString() + "\n");
+		    }
+
+		    JScrollPane scrollPane = new JScrollPane(textArea);
+
+		    JOptionPane.showMessageDialog(
+		        this,
+		        scrollPane,
+		        "All Transactions",
+		        JOptionPane.INFORMATION_MESSAGE
+		    );
 		}
 		
 	}

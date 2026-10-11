@@ -12,8 +12,9 @@ public class Transaction {
 	String description;
 	double price;
 	
-	
-	
+	public Transaction() {
+		super();
+	}
 	public Transaction(int transaction_id) {
 		super();
 		this.transaction_id = transaction_id;
