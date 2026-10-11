@@ -117,13 +117,18 @@ public class TransactionGUI extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==create) {
-			int a = Integer.parseInt(accId.getText());
-	        String c = category.getText();
-	        String m = merchant.getText();
-	        String d = description.getText();
-	        double p = Double.parseDouble(price.getText());
-			Transaction t = new Transaction(a, c, m, d, p);
-			crudMethods.create(t);
+			try {
+				int a = Integer.parseInt(accId.getText());
+		        String c = category.getText();
+		        String m = merchant.getText();
+		        String d = description.getText();
+		        double p = Double.parseDouble(price.getText());
+				Transaction t = new Transaction(a, c, m, d, p);
+				crudMethods.create(t);
+			}
+			catch(Exception x) {
+				ErrorWindow w = new ErrorWindow();
+			}
 		}
 		
 	}
