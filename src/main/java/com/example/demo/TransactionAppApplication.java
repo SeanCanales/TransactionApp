@@ -1,25 +1,27 @@
 package com.example.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import javax.swing.SwingUtilities;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class TransactionAppApplication implements CommandLineRunner{
+public class TransactionAppApplication {
 
-	@Autowired
-	CRUDmethods crudMethods;
- 
-	public static void main(String[] args) {
-		SpringApplication.run(TransactionAppApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication app =
+            new SpringApplication(TransactionAppApplication.class);
 
-	@Override
-	public void run(String... args) throws Exception {
-		Transaction t = new Transaction(22, "Furniture", "IKEA", "Lawn Chair", 23.99);
-		crudMethods.create(t);
-		
-	}
+        app.setHeadless(false);
 
+        ConfigurableApplicationContext context = app.run(args);
+
+        SwingUtilities.invokeLater(() -> {
+            TransactionGUI gui =
+                context.getBean(TransactionGUI.class);
+
+            gui.setVisible(true);
+        });
+    }
 }

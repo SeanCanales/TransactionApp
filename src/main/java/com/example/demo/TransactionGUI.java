@@ -13,10 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TransactionGUI extends JFrame implements ActionListener{
 	
 	JButton create;
+	JButton update;
 	JButton delete;
 	JButton view;
 	private JTextField Id;
@@ -37,10 +40,18 @@ public class TransactionGUI extends JFrame implements ActionListener{
         setLayout(new GridLayout(6, 2, 5, 5));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new FlowLayout());
 		
 		create = new JButton("Create");
 		create.addActionListener(this);
+		
+		update = new JButton("Update");
+		update.addActionListener(this);
+		
+		delete = new JButton("Delete");
+		delete.addActionListener(this);
+		
+		view = new JButton("View");
+		view.addActionListener(this);
 		
 		Id = new JTextField();
 		Id.setPreferredSize(new Dimension(240, 40));
@@ -48,7 +59,7 @@ public class TransactionGUI extends JFrame implements ActionListener{
 		Id.setForeground(new Color(0x00FF00));
 		Id.setBackground(Color.black);
 		Id.setCaretColor(Color.white);
-		Id.setText("Transaction ID (Primary Key)");
+		Id.setText("Transaction ID (Enter for update)");
 		
 		accId = new JTextField();
 		accId.setPreferredSize(new Dimension(240, 40));
@@ -88,7 +99,7 @@ public class TransactionGUI extends JFrame implements ActionListener{
 		price.setForeground(new Color(0x00FF00));
 		price.setBackground(Color.black);
 		price.setCaretColor(Color.white);
-		price.setText("username");
+		price.setText("Price");
 		
 		this.add(Id);
 		this.add(accId);
@@ -97,16 +108,22 @@ public class TransactionGUI extends JFrame implements ActionListener{
 		this.add(description);
 		this.add(price);
 		this.add(create);
+		this.add(update);
 		this.add(delete);
 		this.add(view);
 		this.pack();
-		this.setVisible(true);
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==create) {
-			
+			int a = Integer.parseInt(accId.getText());
+	        String c = category.getText();
+	        String m = merchant.getText();
+	        String d = description.getText();
+	        double p = Double.parseDouble(price.getText());
+			Transaction t = new Transaction(a, c, m, d, p);
+			crudMethods.create(t);
 		}
 		
 	}
